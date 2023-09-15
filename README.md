@@ -1,2 +1,4 @@
 # Web scrap with data presentation
  
+The basic idea of ​​the application, which will be developed as part of the thesis, is the analysis and visualization of data based on search engine keywords. The application enables the user to enter the desired keyword in a search field, receiving the corresponding information via Google. Its implementation was achieved using Node.JS for the Backend and Vanilla.JS for the Frontend. MongoDB was used for the base of the application and JSON calls were used to interact with the Google API.
+A key element of the application is how it searches for keywords in the first thirty Google results, analyzing and converting the data-results obtained into both charts and tables, offering the possibility for each user to be able to derive information from them. In conclusion the use of the developed application can be used for various SEO campaigns, which can be characterized as one of the pillars of Digital Marketing.
