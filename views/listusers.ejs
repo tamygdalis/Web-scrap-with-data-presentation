@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ('./partials/head') %>
+  </head>
+
+  <body>
+    <%- include ('./partials/menu') %>
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container d-flex align-items-center flex-column">
+        <!-- Masthead Avatar Image--><img
+          class="masthead-avatar mb-5"
+          src="assets/img/premiumlogo.png"
+          alt=""
+        />
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">
+          The Custom Search - Chart Visualization app
+        </h1>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <!-- Masthead Subheading-->
+      </div>
+    </header>
+    <section class="page-section portfolio" id="">
+      <div class="container">
+        <div>
+          <h2
+            class="page-section-heading text-center text-uppercase text-secondary mb-0"
+          >
+            Clients
+          </h2>
+          <!-- Icon Divider-->
+          <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+          </div>
+          <h2 class="headerh2">The Custom Search - Chart Visualization app</h2>
+          <br />
+          <div id="createuserparagraph">
+            <p style="float: left;">
+              Do you want to create a user? If yes press the button !
+            </p>
+            <button
+              type="button"
+              onclick="opencreateModal()"
+              class="btn btn-primary"
+              style="float: right;"
+            >
+              Create User
+            </button>
+          </div>
+        </div>
+        <div id="test">
+          <table class="table" style="text-align: center;">
+            <thead class="thead-dark" style="text-align: center;">
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Firstname</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Email</th>
+                <th scope="col">Age</th>
+                <th scope="col">Edit user</th>
+                <th scope="col">Delete user</th>
+              </tr>
+            </thead>
+            <tbody id="test2"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Create -->
+    <div
+      class="modal"
+      id="createModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create User</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="who">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Username"
+                name="username"
+                value=""
+                id="username1"
+              />
+            </div>
+            <div class="form-group">
+              <label for="pass">Password</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Password"
+                name="password"
+                value=""
+                id="password1"
+              />
+            </div>
+            <div class="form-group">
+              <label for="name">Firstname</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Firstname"
+                name="firstname"
+                value=""
+                id="firstname1"
+              />
+            </div>
+            <div class="form-group">
+              <label for="lastname">Lastname</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Lastname"
+                name="lastname"
+                value=""
+                id="lastname1"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail address</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter E-mail"
+                name="email"
+                value=""
+                id="email1"
+              />
+            </div>
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter Age"
+                name="age"
+                value=""
+                id="age1"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Nope
+            </button>
+            <button
+              onclick="createUser()"
+              type="button"
+              class="btn btn-primary"
+              id="createuserButton"
+            >
+              Create User
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Update -->
+    <div
+      class="modal"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="who">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Username"
+                name="username"
+                value=""
+                id="username"
+              />
+            </div>
+            <div class="form-group">
+              <label for="pass">Password</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Password"
+                name="password"
+                value=""
+                id="password"
+              />
+            </div>
+            <div class="form-group">
+              <label for="name">Firstname</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Firstname"
+                name="firstname"
+                value=""
+                id="firstname"
+              />
+            </div>
+            <div class="form-group">
+              <label for="lastname">Lastname</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Lastname"
+                name="lastname"
+                value=""
+                id="lastname"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail address</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter E-mail"
+                name="email"
+                value=""
+                id="email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter Age"
+                name="age"
+                value=""
+                id="age"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Nope
+            </button>
+            <button
+              onclick="updateUser()"
+              type="button"
+              class="btn btn-primary"
+              id="updateuserButton"
+            >
+              Update User
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Delete -->
+    <div
+      class="modal"
+      id="testModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete the user?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Nope
+            </button>
+            <button
+              onclick="deleteUser()"
+              type="button"
+              class="btn btn-primary"
+              id="deleteuserButton"
+            >
+              Yes,delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+      <%- include ('./partials/footer') %>
+    </div>
+    <%- include ('./partials/scripts') %>
+    <!---<%- include ('./pagescripts') %>-->
+    <script>
+      function Logoutuser() {
+        let jsontoken = localStorage.removeItem("jwt");
+        window.location.replace("/");
+      }
+
+      function opencreateModal() {
+        $("#createModal").modal("show");
+      }
+
+      function openModal(userID) {
+        $("#testModal").modal("show");
+        $("#deleteuserButton").attr("userID", userID);
+      }
+
+      function openUpdateUserModal(userID) {
+        fetch(`/getusersById/${userID}`)
+          .then((response) => {
+            return response.json();
+          })
+          .then((jsonResponse) => {
+            console.log(jsonResponse);
+            $("#username").val(jsonResponse[0].username);
+            $("#password").val(jsonResponse[0].password);
+            $("#firstname").val(jsonResponse[0].firstname);
+            $("#lastname").val(jsonResponse[0].lastname);
+            $("#email").val(jsonResponse[0].email);
+            $("#age").val(jsonResponse[0].age);
+
+            $("#exampleModal").modal("show");
+            $("#updateuserButton").attr("userID", userID);
+          });
+      }
+
+      function createUser() {
+        let username = $("#username1").val();
+        let password = $("#password1").val();
+        let firstname = $("#firstname1").val();
+        let lastname = $("#lastname1").val();
+        let email = $("#email1").val();
+        let age = $("#age1").val();
+
+        $.ajax({
+          url: "/listusers",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            username: username,
+            password: password,
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            age: age,
+          }),
+          success: function (response) {
+            console.log(response);
+            fetchUsers();
+            $("#createModal").modal("hide");
+            console.log("Created");
+          },
+        });
+      }
+
+      function updateUser() {
+        console.log($("#updateuserButton").attr("userID"));
+        let username = $("#username").val();
+        let password = $("#password").val();
+        let firstname = $("#firstname").val();
+        let lastname = $("#lastname").val();
+        let email = $("#email").val();
+        let age = $("#age").val();
+
+        $.ajax({
+          url: "/listusers/" + $("#updateuserButton").attr("userID"),
+          method: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify({
+            username: username,
+            password: password,
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            age: age,
+          }),
+          success: function (response) {
+            console.log(response);
+            fetchUsers();
+            $("#exampleModal").modal("hide");
+            console.log("Clicked");
+          },
+        });
+      }
+
+      function deleteUser() {
+        console.log($("#deleteuserButton").attr("userID"));
+
+        $.ajax({
+          url: "/listusers/" + $("#deleteuserButton").attr("userID"),
+          method: "DELETE",
+          contentType: "application/json",
+          success: function (response) {
+            console.log(response);
+            fetchUsers();
+            $("#testModal").modal("hide");
+            console.log("Clicked");
+          },
+        });
+      }
+
+      function fetchUsers() {
+        fetch("/listusers2")
+          .then((response) => {
+            return response.json();
+          })
+          .then((jsonResponse) => {
+            let table = "";
+            jsonResponse.forEach((item) => {
+              table += `
+              <tr>
+              <td>${item.username}</td>
+              <td>${item.firstname}</td>
+              <td>${item.lastname}</td>
+              <td>${item.email}</td>
+              <td>${item.age}</td>
+              <td><button type="button" onclick="openUpdateUserModal('${item._id}')" class="btn btn-primary" ">
+               Update User
+              </button></td>
+              <td><button type="button" onclick="openModal('${item._id}')" class="btn btn-primary">
+                Delete User
+              </button></td>
+              </tr>`;
+            });
+            document.getElementById("test2").innerHTML = table;
+          });
+      }
+
+      fetchUsers();
+      setInterval(() => {
+        fetchUsers();
+      }, 5000);
+    </script>
+  </body>
+</html>

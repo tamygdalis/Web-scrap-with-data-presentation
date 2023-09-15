@@ -1,0 +1,408 @@
+<script>
+  //Menu Scripts
+  function Logoutuser() {
+    let jsontoken = localStorage.removeItem("jwt");
+    window.location.replace("/");
+  }
+
+  //Index Scripts
+  let alldisplaylinks = [];
+  let counter = 0;
+  let counterall = 0;
+  let j = [];
+  let beforeKeyword = [];
+  let afterKeyword = [];
+  let counterbefore = 0;
+  let counterafter = [];
+  $("#username").html(localStorage.getItem("username"));
+
+  function openseoModal() {
+    $("#seomodal").modal("show");
+  }
+
+  $(document).ready(function () {
+    $("#showcharts").on("click", function () {
+      $("#chart_div").toggle();
+      $("#chartall_div").toggle();
+      $("#chartallminus_div").toggle();
+    });
+  });
+
+  $(document).ready(function () {
+    $("#keywordsbeforebtn").on("click", function () {
+      drawChart();
+      $("#chart_div").toggle();
+    });
+  });
+
+  $(document).ready(function () {
+    $("#keywordsafterbtn").on("click", function () {
+      drawChartall();
+      $("#chartall_div").toggle();
+    });
+  });
+
+  $(document).ready(function () {
+    $("#keywordsallbtn").on("click", function () {
+      drawChartallminussearchinput();
+      $("#chartallminus_div").toggle();
+    });
+  });
+
+  $(document).ready(function () {
+    $("#tabletoggler").on("click", function () {
+      $("#wordstable").toggle();
+    });
+  });
+
+  $(document).ready(function () {
+    $("#tabletoggler").on("click", function () {
+      $("#tablebeforeafter").toggle();
+    });
+  });
+  $(document).ready(function () {
+    $("#btn1").on("click", function () {
+      $("#myTable").toggle();
+    });
+  });
+
+  $(document).ready(function () {
+    $("#btn2").on("click", function () {
+      $("#urlpositiontable").show();
+    });
+  });
+
+  $(document).ready(function () {
+    $("#btn2").on("click", function () {
+      $("#ResultsForUrl").show();
+    });
+  });
+
+  $(document).ready(function () {
+    $("#btn1").on("click", function () {
+      $("#containerresults").show();
+    });
+  });
+
+  $(document).ready(function () {
+    $("#chartsbtn").on("click", function () {
+      $("#ChartsContainer").show();
+    });
+  });
+  $(document).ready(function () {
+    $("#chartsbtn").on("click", function () {
+      $("#about").show();
+    });
+  });
+  $(document).ready(function () {
+    $("#ullistbtn").on("click", function () {
+      $("#ullist").toggle();
+    });
+  });
+
+  function search() {
+    let searchinput = $("#searchinput").val();
+
+    $.ajax({
+      url: "/search",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({
+        searchinput: searchinput,
+      }),
+      success: function (response) {
+        //let upperelement=searchinput.upper()
+        let myTable = $("#test2");
+        let htmlTable = "";
+        counter = 0;
+        response.forEach((item) => {
+          let sp = item.snippet.split(" ");
+
+          for (let i = 0; i < sp.length; i++) {
+            counterall = counterall + 1;
+            if (sp[i].toLowerCase() == searchinput.toLowerCase()) {
+              counter = counter + 1;
+              if (sp[i - 1] != undefined) {
+                beforeKeyword.push(sp[i - 1]);
+                counterbefore = counterbefore + 1;
+
+                //counterbefore=beforeKeyword.indexOf(i+1)
+                //counterbefore=counterbefore+beforeKeyword.push(sp[i - 1])
+              }
+              if (sp[i + 1] != undefined) {
+                afterKeyword.push(sp[i + 1]);
+              }
+            }
+          }
+
+          // sp.forEach((element) => {
+          //   //console.log(element)
+          //   //j=j.push(element.next())
+          //   //console.log(j)
+          //   //let newelement= element.value.toUppercase()
+          //   if (element.toLowerCase() == searchinput.toLowerCase()) {
+          //     //let x=item.indexOf("element")
+          //     //j.push(x+1)
+          //     counter = counter + 1;
+
+          //   }
+
+          // })
+          htmlTable += `
+                    <tr>
+                      <td>${item.displayLink}</td>
+                      <td>${item.snippet}</td>
+                    </tr>
+                `;
+        });
+        myTable.html(htmlTable);
+
+        console.log(beforeKeyword);
+        console.log(afterKeyword);
+      },
+    });
+  }
+
+  function searchSeo() {
+    let searchinput = $("#searchinput").val();
+
+    $.ajax({
+      url: "/search",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({
+        searchinput: searchinput,
+      }),
+      success: function (response) {
+        //let upperelement=searchinput.upper()
+        let myurlTable = $("#urltable");
+        let myurlpossitiontable = $("#myurlpossitionTable");
+        let htmlTable = "";
+        let htmlurlTable = "";
+        response.forEach((item, index) => {
+          alldisplaylinks.push(item.displayLink);
+          let sp = item.displayLink.split(".");
+          for (let i = 0; i < sp.length; i++) {
+            if (sp[i].toLowerCase() == searchinput.toLowerCase()) {
+              let rank = i + 1;
+              rank2 = index + 1;
+
+              htmlTable += `
+                    <tr>
+                      <td>${rank2}</td>
+                      <td>${item.displayLink}</td>
+                    </tr>
+                `;
+              // htmlurlTable += `
+              //   <tr>
+              //       <td>${rank2}</td>
+              //       <td>${item.displayLink}</td>
+              //      </tr>
+              //  `
+            }
+          }
+        });
+        let ul = document.getElementById("urllist");
+
+        for (i = 0; i < alldisplaylinks.length; i++) {
+          let li = document.createElement("li");
+          li.appendChild(document.createTextNode(alldisplaylinks[i]));
+          ul.appendChild(li);
+        }
+
+        myurlTable.html(htmlTable);
+
+        //myurlpossitiontable.html(htmlurlTable);
+        console.log(alldisplaylinks);
+      },
+      // END
+    });
+  }
+
+  function drawChart() {
+    let searchinput = $("#searchinput").val();
+    var data = new google.visualization.DataTable(counterbefore, beforeKeyword);
+
+    data.addColumn("string", "Keyword that you are looking for");
+    data.addColumn("number", "Times it appeared");
+
+    let uniqueKeywordsBefore = [];
+    for (i = 0; i < beforeKeyword.length; i++) {
+      let index = uniqueKeywordsBefore.findIndex((el) => {
+        return el == beforeKeyword[i];
+      });
+      if (index == -1) {
+        uniqueKeywordsBefore.push(beforeKeyword[i]);
+      }
+    }
+
+    for (i = 0; i < uniqueKeywordsBefore.length; i++) {
+      let counter = 0;
+      for (j = 0; j < beforeKeyword.length; j++) {
+        if (uniqueKeywordsBefore[i] == beforeKeyword[j]) {
+          counter++;
+        }
+      }
+      data.addRows([[uniqueKeywordsBefore[i], counter]]);
+    }
+
+    // for (i=0;i<=beforeKeyword.length;i++){
+    //  // let j=beforeKeyword.count(i)
+
+    // }
+
+    // Set chart options
+    var options = {
+      title: "Your Keywords Before the searchinput",
+      width: 600,
+      height: 500,
+      pieHole: 0.4,
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(
+      document.getElementById("chart_div")
+    );
+    chart.draw(data, options);
+
+    let mybeforeTable = document.getElementById("beforetable");
+
+    for (let i = 0; i <= beforeKeyword.length; i++) {
+      let row = `<tr>
+                  <td> ${beforeKeyword[i]}</td>
+                  </tr>
+              `;
+
+      mybeforeTable.innerHTML += row;
+    }
+    let myafterTable = document.getElementById("aftertable");
+    // let mybeforeTable = document.getElementById('tablebefore');
+    for (let i = 0; i <= afterKeyword.length; i++) {
+      let row = `
+                  <tr>
+                  <td> ${afterKeyword[i]}</td>
+                  </tr> 
+                    `;
+
+      myafterTable.innerHTML += row;
+    }
+  }
+
+  function drawChartallminussearchinput() {
+    let searchinput = $("#searchinput").val();
+    var dataallminus = new google.visualization.DataTable(counterall);
+    dataallminus.addColumn("string", "Keyword that you are looking for");
+    dataallminus.addColumn("number", "All words");
+    dataallminus.addRows([
+      ["All words", counterall - counter],
+      [searchinput, counter],
+    ]);
+
+    // Set chart options
+    var options = {
+      title: "Total words minus searchinput",
+      width: 600,
+      height: 500,
+      pieHole: 0.4,
+    };
+    // Instantiate and draw our chart, passing in some options.
+    var chartallminus = new google.visualization.PieChart(
+      document.getElementById("chartallminus_div")
+    );
+    chartallminus.draw(dataallminus, options);
+  }
+
+  function drawChartall() {
+    let searchinput = $("#searchinput").val();
+    var dataall = new google.visualization.DataTable(counterall);
+    dataall.addColumn("string", "All words");
+    dataall.addColumn("number", "All words");
+
+    let uniqueKeywordsAfter = [];
+    for (i = 0; i < afterKeyword.length; i++) {
+      let index = uniqueKeywordsAfter.findIndex((el) => {
+        return el == afterKeyword[i];
+      });
+      if (index == -1) {
+        uniqueKeywordsAfter.push(afterKeyword[i]);
+      }
+    }
+
+    for (i = 0; i < uniqueKeywordsAfter.length; i++) {
+      let counter = 0;
+      for (j = 0; j < afterKeyword.length; j++) {
+        if (uniqueKeywordsAfter[i] == afterKeyword[j]) {
+          counter++;
+        }
+      }
+      dataall.addRows([[uniqueKeywordsAfter[i], counter]]);
+    }
+    // dataall.addRows([
+    //   ['All words', counterall],
+
+    // ]);
+
+    // Set chart options
+    var options = {
+      title: "Your Keywords After the searchinput",
+      width: 600,
+      height: 500,
+      pieHole: 0.4,
+    };
+    // Instantiate and draw our chart, passing in some options.
+    var chartall = new google.visualization.PieChart(
+      document.getElementById("chartall_div")
+    );
+    chartall.draw(dataall, options);
+  }
+  // List Users Scripts
+
+  function CreateAdminModal() {
+    $("#CreateAdminModal").modal("show");
+  }
+  // Menu to login Scripts
+  function createAdmin() {
+    let username = $("#username3").val();
+    let password = $("#password3").val();
+    let email = $("#email3").val();
+    $.ajax({
+      url: "/signup",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({
+        username: username,
+        password: password,
+        email: email,
+      }),
+      success: function (response) {
+        console.log(response);
+        $("#CreateAdminModal").modal("hide");
+        console.log("Created");
+        window.alert("Succesfully Signed Up");
+      },
+    });
+  }
+
+  function LoginAdmin() {
+    let username = $("#username4").val();
+    let password = $("#password4").val();
+    $.ajax({
+      url: "/login",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+      success: function (response) {
+        document.cookie = `token=${response.token}`;
+        localStorage.setItem("username", response.username);
+        //$("#LoginModal").modal('hide')
+        console.log("Logged in");
+        window.location.replace("index", {
+          username: username,
+        });
+      },
+    });
+  }
+</script>

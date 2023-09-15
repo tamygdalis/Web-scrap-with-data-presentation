@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include ('./partials/head') %>
+
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    // Load the Visualization API and the piechart package.
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    // <!--google.charts.setOnLoadCallback(drawChart);-->
+
+    // Callback that creates and populates a data table, 
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+  </script>
+</head>
+
+<body>
+  <%- include ('./partials/menu') %>
+  <main>
+    <!-- Masthead-->
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container d-flex align-items-center flex-column">
+        <!-- Masthead Avatar Image--><img class="masthead-avatar mb-5" src="assets/img/premiumlogo.png" alt="" />
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">The Custom Search - Chart Visualization app</h1>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <!-- Masthead Subheading-->
+        <p class="masthead-subheading font-weight-light mb-0">
+          <h3> Welcome back <span id="username"></span> !</h3>
+        </p>
+      </div>
+    </header>
+
+
+    <!-- SEARCH-->
+    <section class="page-section portfolio" id="portfolio">
+      <div class="container">
+        <!-- Portfolio Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Search</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <h2 class="headerh2">The Custom Search - Chart Visualization app</h2>
+
+        <div class="row">
+          <div class="searchbox">
+            <div class="container1">
+              <script async src="https://cse.google.com/cse.js?cx=004377872228925320789:haudjohezqn"></script>
+              <span class=searchIcon><i class="fa fa-search"></i></span>
+              <input id="searchinput" placeholder="Search everything">
+            </div>
+            <button class="btn btn-primary" onclick="search()" id="btn1">Search Keywords</button>
+            <button class="btn btn-primary" onclick="searchSeo()" id="btn2">Search URL</button>
+          </div>
+
+        </div>
+
+        <!-- Search Table-->
+        <table class="table" style='text-align:center' id='myTable'>
+          <thead class="thead-dark" style='text-align:center'>
+            <tr>
+              <th scope="col">Domain</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody id='test2'>
+            <tr>
+              <td id="idbefore"></td>
+              <td id="idafter"></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </section>
+
+    <!-- Search Url Table-->
+    <section class="page-section portfolio" id="urlpositiontable">
+      <div class="container">
+        <div id=test>
+          <table class="table" style='text-align:center' id='myurlTable'>
+            <thead class="thead-dark" style='text-align:center'>
+              <tr>
+                <th scope="col">Position </th>
+                <th scope="col">Possition in URL</th>
+              </tr>
+            </thead>
+            <tbody id='urltable'>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS FOR SEARCHINPUT-->
+    <section class="page-section portfolio" id="containerresults">
+      <div class="container">
+        <!-- Portfolio Section Heading-->
+
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Results for the Searchinput</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 ml-auto">
+            <p class="lead">In this section you will create results about your searchinput . Those results will be charts and a table with the before 
+              and after keyword that are related with your search input.You can press the button bellow to generate the results about your search.
+            </p>
+          </div>
+          <div class="col-lg-4 mr-auto">
+            <p class="lead"> When the results will be generated , you will have the power to toggle them by pressing the related button !
+             </p><button
+              onclick="drawChart();drawChartallminussearchinput();drawChartall();" type="button"
+              class="btn btn-danger text-center  " id="chartsbtn">Generate Results for the Searchinput</button>
+          </div>
+
+        </div>
+    </section>
+
+    <!-- RESULTS FOR SEARCH URL-->
+    <section class="page-section portfolio" id="ResultsForUrl">
+      <div class="container">
+        <!-- Portfolio Section Heading-->
+
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Results for URL</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 ml-auto">
+            <p class="lead">These are the results about the searchinput us a URL. If you want to improve your site SEO you can press 
+              the button bellow that contains tips about that.
+            </p><button type="button" onclick="openseoModal()" style="float: left"
+              class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              SEO tips
+            </button>
+          </div>
+
+          <div class="col-lg-4 mr-auto">
+            <p class="lead">You can see the list with the 30 first URLS by pressing the button bellow. If your search input is not there dont panic, just follow the 
+              steps at the button on your left! </p>
+            <button type="button" style="float: left" class="btn btn-primary" data-toggle="modal"
+              data-target="#exampleModal" id="ullistbtn">
+              URL List
+            </button>
+          </div>
+
+        </div>
+    </section>
+    <!-- List URLS section-->
+    <section class="page-section portfolio" id="ullist">
+      <div class="container" id="urllistcontainer">
+        <div style="text-align: center;">
+          <ul class="list-group" style='text-align:center' id="urllist">
+
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- Section Charts-->
+    <section class="page-section portfolio" id="ChartsContainer">
+      <div class="container">
+        <!-- Portfolio Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Charts</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 ml-auto">
+            <p class="lead">In this section you will see the results about your searchinput by the form of charts. Those charts seek a lot of information about
+              the before and after keywords that are connected with your search.You can press the button bellow to toggle the results about your search.</p>
+          </div>
+          <div class="col-lg-4 mr-auto">
+            <p class="lead">There will be 3 charts. One with the before keywords, one with the 
+              after keywords and one with the number of the total keywords minus the counter of the searchinput!</p><button id="showcharts"
+              type="button" class="btn btn-primary ">Charts</button>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </section>
+    <br>
+    <br>
+
+
+
+    <!-- Charts-->
+    <div id="charts" class="chartrow">
+      <div id="chart_div" class="chartcol"></div>
+      <div id="chartall_div" class="chartcol"></div>
+      <div id="chartallminus_div" class="chartcol"></div>
+    </div>
+
+
+    <!-- Table section-->
+    <section class="page-section bg-primary text-white mb-0" id="about">
+      <div class="container" id="TableContainer">
+        <!--Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-white">Tables</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content-->
+        <div class="row">
+          <div class="col-lg-4 ml-auto">
+            <p class="lead">In this section of the application you can see and analyze the table with the before and
+              after words.</p>
+          </div>
+          <div class="col-lg-4 mr-auto">
+            <p class="lead">This can help you decide the words that can make your campaign even better, targeting
+              Exactly what you really want.</p>
+          </div>
+        </div>
+        <!-- Table Button-->
+        <div class="text-center mt-4">
+          <a class="btn btn-xl btn-outline-light" id="tabletoggler">Show Table</a>
+        </div>
+      </div>
+    </section>
+    <section class="page-section portfolio" id="tablebeforeafter">
+      <div class="container">
+        <table class="table" id="wordstable" style='text-align:center ' id='tableafter'>
+          <thead class="thead-dark" style='text-align:center'>
+            <tr>
+              <th scope="col">Words apperad before the searchinput</th>
+              <th scope="col">Words apperad after the searchinput</th>
+            </tr>
+          </thead>
+          <tr id='test2'>
+            <td>
+              <table id=beforetable class="table" style='text-align:center'></table>
+            </td>
+            <td>
+              <table id="aftertable" class="table" style='text-align:center'></table>
+            </td>
+            </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Modal SEO-->
+    <div class="modal fade" id="seomodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            If your site appears in the first 5 results, then your SEO is great.<br>
+            <br>
+            If your site appears in the results 5-10 you have to focus on the right Keyword list <br>
+            <br>
+            If your site appears in the results 5-10 you have to focus on the right ammount of keywords and the follow
+            some SEO tips to improve the content .<br><br>
+
+            If your site appears in the results 10-20 you have to focus on following the Steps:<br>
+            First you have to impove the Content of your posts<br>
+            Second:you have to add more relevant keyword tags , to help the Google Search Input Interact better with the
+            content of your side.<br>
+            Third: You have to optimize you site for performance(Pictures, Post content, cache speed)<br>
+            <br>
+            If your site appears in the results 20-30 , you have to follow the steps:<br>
+
+            First you have to impove the Content of your posts<br>
+            Second:you have to add more relevant keyword tags , to help the Google Search Input Interact better with the
+            content of your side.<br>
+            Third: You have to optimize you site for performance(Pictures, Post
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </main>
+  <div class="footer">
+    <%- include ('./partials/footer') %>
+  </div>
+  <%- include ('./partials/scripts') %>
+  <%- include ('./pagescripts') %>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase id=" mainNav">
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="/">FastForward</a><button
+      class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
+      type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+      aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+
+  </div>
+</nav>
+
+<div class="modal" id="CreateAdminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create new admin!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="who">Username</label>
+          <input type="text" class="form-control" placeholder="Enter Username" name="username" value="" id="username3">
+        </div>
+        <div class="form-group">
+          <label for="pass">Password</label>
+          <input type="text" class="form-control" placeholder="Enter Password" name="password" value="" id="password3">
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail address</label>
+          <input type="text" class="form-control" placeholder="Enter E-mail" name="email" value="" id="email3">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nope</button>
+        <button onclick="createAdmin()" type="submit" class="btn btn-primary" id="createuserButton">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="masthead bg-primary text-white text-center">
+  <div class="container d-flex align-items-center flex-column">
+    <!-- Masthead Avatar Image--><img class="masthead-avatar mb-5" src="assets/img/premiumlogo.png" alt="" />
+    <!-- Masthead Heading-->
+    <h1 class="masthead-heading text-uppercase mb-0">The Custom Search - Chart Visualization app</h1>
+    <!-- Icon Divider-->
+    <div class="divider-custom divider-light">
+      <div class="divider-custom-line"></div>
+      <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+      <div class="divider-custom-line"></div>
+    </div>
+    <!-- Masthead Subheading-->
+
+  </div>
+</header>
+
+<!----Login--->
+<section class="page-section" id="contact">
+  <div class="container">
+
+    <!-- Log in Section Heading -->
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Log in</h2>
+
+    <!-- Icon Divider -->
+    <div class="divider-custom">
+      <div class="divider-custom-line"></div>
+      <div class="divider-custom-icon">
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="divider-custom-line"></div>
+    </div>
+
+    <!-- Contact Section Form -->
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+        <form name="sentMessage" novalidate="novalidate">
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+              <label>Username</label>
+              <input class="form-control" id="username4" type="text" placeholder="Username" name="username">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+              <label>Password</label>
+              <input class="form-control" id="password4" type="password" placeholder="Enter the password here"
+                name="password">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+
+
+          <br>
+          <div id="success"></div>
+          <div class="form-group">
+            <button onclick="LoginAdmin()" type="button" class="btn btn-primary btn-xl"
+              id="createuserButton">Submit</button>
+          </div>
+          <div class="modal-footer">
+            New admin? Press<button type="button" onclick="CreateAdminModal()" class="btn btn-link">Here!!!</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<%- include ('./scripts') %>
